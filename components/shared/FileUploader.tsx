@@ -9,8 +9,8 @@ import { Button } from '@/components/ui/button'
 import { convertFileToUrl } from '@/lib/utils'
 
 type FileUploaderProps = {
-    onFieldChange: (url: string) => void
     imageUrl: string
+    onFieldChange: (url: string) => void
     setFiles: Dispatch<SetStateAction<File[]>>
 }
 
