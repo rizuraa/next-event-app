@@ -17,7 +17,6 @@ const EventDetails = async ({ params: { id } }: SearchParamProps) => {
           height={1000}
           className="h-full min-h-[300px] object-cover object-center"
         />
-
         <div className="flex w-full flex-col gap-8 p-5 md:p-10">
           <div className="flex flex-col gap-6">
             <h2 className='h2-bold'>{event.title}</h2>
@@ -47,10 +46,10 @@ const EventDetails = async ({ params: { id } }: SearchParamProps) => {
               <div className="p-medium-16 lg:p-regular-20 flex flex-wrap items-center">
                 <p>
                   {formatDateTime(event.startDateTime).dateOnly} - {' '}
-                  {formatDateTime(event.startDateTime).timeOnly}
-                </p>
+                  {formatDateTime(event.startDateTime).timeOnly} -  
+                </p>                
                 <p>
-                  {formatDateTime(event.endDateTime).dateOnly} -  {' '}
+                  {' '}{formatDateTime(event.endDateTime).dateOnly} - {' '}
                   {formatDateTime(event.endDateTime).timeOnly}
                 </p>
               </div>
