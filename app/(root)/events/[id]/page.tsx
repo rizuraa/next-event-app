@@ -13,11 +13,13 @@ const EventDetails = async ({
   searchParams,
 }: SearchParamProps) => {
   const event = await getEventById(id);
-  const relatedEvent = await getRelatedEventsByCategory({
+
+  const relatedEvents = await getRelatedEventsByCategory({
     categoryId: event.category._id,
     eventId: event._id,
     page: searchParams.page as string,
   });
+
   return (
     <>
       <section className="flex justify-center bg-primary-50 bg-dotted-pattern bg-contain">
@@ -29,6 +31,7 @@ const EventDetails = async ({
             height={1000}
             className="h-full min-h-[300px] object-cover object-center"
           />
+
           <div className="flex w-full flex-col gap-8 p-5 md:p-10">
             <div className="flex flex-col gap-6">
               <h2 className="h2-bold">{event.title}</h2>
@@ -52,7 +55,6 @@ const EventDetails = async ({
               </div>
             </div>
 
-            {/* cehckout button */}
             <CheckoutButton event={event} />
 
             <div className="flex flex-col gap-5">
@@ -66,10 +68,9 @@ const EventDetails = async ({
                 <div className="p-medium-16 lg:p-regular-20 flex flex-wrap items-center">
                   <p>
                     {formatDateTime(event.startDateTime).dateOnly} -{" "}
-                    {formatDateTime(event.startDateTime).timeOnly} -
+                    {formatDateTime(event.startDateTime).timeOnly}
                   </p>
                   <p>
-                    {" "}
                     {formatDateTime(event.endDateTime).dateOnly} -{" "}
                     {formatDateTime(event.endDateTime).timeOnly}
                   </p>
@@ -97,17 +98,19 @@ const EventDetails = async ({
           </div>
         </div>
       </section>
-      {/* Event Related */}
+
+      {/* EVENTS with the same category */}
       <section className="wrapper my-8 flex flex-col gap-8 md:gap-12">
-        <h2 className="h2-bold">Related Event</h2>
+        <h2 className="h2-bold">Related Events</h2>
+
         <Collection
-          data={relatedEvent?.data}
-          emptyTitle="No Event Found"
-          emptyStateSubtext="Come Back Later"
+          data={relatedEvents?.data}
+          emptyTitle="No Events Found"
+          emptyStateSubtext="Come back later"
           collectionType="All_Events"
-          limit={6}
-          page={1}
-          totalPages={2}
+          limit={3}
+          page={searchParams.page as string}
+          totalPages={relatedEvents?.totalPages}
         />
       </section>
     </>
